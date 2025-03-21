@@ -2,12 +2,11 @@
 #include "TextLCD.h"  // mbed library for parallel LCD
 
 // Define LCD using Parallel Mode (4-bit interface)
-TextLCD lcd(PB0, PB1, PB2, PB3, PB4, PB5, TextLCD::LCD16x2); 
-// (RS, E, D4, D5, D6, D7, Type)
+TextLCD lcd(PB0, PB1, PB2, PB3, PB4, PB5, TextLCD::LCD16x2);  // (RS, E, D4, D5, D6, D7, Type)
 
 // Moisture Sensors
-AnalogIn moistureSensor1(PA_0);  // Moisture sensor for Plant A
-AnalogIn moistureSensor2(PA_1);  // Moisture sensor for Plant B
+AnalogIn moistureSensor1(PA_0);  // for Plant A
+AnalogIn moistureSensor2(PA_1);  //  for Plant B
 
 // UART for PC output
 UnbufferedSerial pc(USBTX, USBRX, 9600);
