@@ -6,10 +6,10 @@ DigitalOut alertLed(PB_2);    // alert LED connected to D4
 #define LIGHT_THRESHOLD 0.4   // threshold for light sensor
 
 int main() {
-    // Initialize the light sensor pin as PullDown
+    // light sensor pin as PullDown
     lightSensor.mode(PullDown);
 
-    // Initialize the LED to OFF
+    // initialize the led to OFF 
     alertLed = OFF;
 
     while (true) {
@@ -18,7 +18,7 @@ int main() {
 
         // Check if the light level is below the threshold
         if (lightValue < LIGHT_THRESHOLD) {
-            alertLed = ON;  // turn ON the LED if light is low
+            alertLed = ON;  // turn ON the LED if light intensity is low
         } else {
             alertLed = OFF; 
         }
