@@ -1,6 +1,5 @@
 #include "mbed.h"
 
-// Pin Definitions
 DigitalIn lightSensor(PB_0);  // light sensor connected to RS
 DigitalOut alertLed(PB_2);    // alert LED connected to D4
 
