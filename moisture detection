@@ -1,0 +1,52 @@
+#include "mbed.h"
+#include "LiquidCrystal_I2C.h"
+
+// Moisture sensors
+AnalogIn moistureSensor1(PA_0); // Moisture sensor for Plant A
+AnalogIn moistureSensor2(PA_1); // Moisture sensor for Plant B
+
+// UART setup
+UnbufferedSerial pc(USBTX, USBRX, 9600);
+
+// LCD Display setup (I2C Address: 0x27, 16 columns, 2 rows)
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+// Moisture Thresholds
+#define MOISTURE_THRESHOLD_1 0.4  
+#define MOISTURE_THRESHOLD_2 0.4  
+
+// Function Prototypes
+void checkMoistureSensors();
+void displayAlert(const char* message);
+
+int main() {
+    lcd.init();
+    lcd.backlight();
+    lcd.setCursor(0, 0);
+    lcd.print("Moisture Monitor");
+    thread_sleep_for(2000);
+    lcd.clear();
+
+    while (true) {
+        checkMoistureSensors();
+        thread_sleep_for(1000); // Check every second
+    }
+}
+
+void checkMoistureSensors() {
+    if (moistureSensor1.read() < MOISTURE_THRESHOLD_1) {
+        displayAlert("Plant A Needs Water");
+    }
+
+    if (moistureSensor2.read() < MOISTURE_THRESHOLD_2) {
+        displayAlert("Plant B Needs Water");
+    }
+}
+
+void displayAlert(const char* message) {
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print(message);
+    pc.write(message, strlen(message)); // Send message over UART
+    thread_sleep_for(2000);
+}
